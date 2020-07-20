@@ -75,7 +75,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "urlly.users.apps.UsersConfig",
-    "urlly.ultrarapidlinks.UltrarapidlinksConfig"
+    "urlly.ultrarapidlinks.apps.UltrarapidlinksConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
