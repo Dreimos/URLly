@@ -16,6 +16,7 @@ urlpatterns = [
     path("users/", include("urlly.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    path("ultrarapidlinks/", include("urlly.ultrarapidlinks.urls", namespace="ultrarapidlinks")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

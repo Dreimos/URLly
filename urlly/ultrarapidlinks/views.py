@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from django.views.generic import CreateView, DetailView, RedirectView
 
-# Create your views here.
+from .models import StoredURL
+
+class URLCreateView(CreateView):
+    model = StoredURL
+    fields = ['url']
+
+class URLDetailView(DetailView):
+    model = StoredURL
+    fields = ['url', 'slug']
+

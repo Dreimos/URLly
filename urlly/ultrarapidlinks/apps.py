@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class UltrarapidlinksConfig(AppConfig):
-    name = 'ultrarapidlinks'
+    name = 'urlly.ultrarapidlinks'
