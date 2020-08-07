@@ -1,4 +1,4 @@
-from django.views.generic import CreateView, DetailView, RedirectView, ListView
+from django.views.generic import CreateView, DetailView, RedirectView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 
@@ -31,3 +31,8 @@ class URLRedirectView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         url_object = get_object_or_404(StoredURL, slug=kwargs["slug"])
         return url_object.url
+
+class URLUpdateView(LoginRequiredMixin, UpdateView):
+    model = StoredURL
+    fields = ['url']
+    action = "Update"

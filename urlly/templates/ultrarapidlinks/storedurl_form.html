@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    <form class="form-horizontal" method="post" action="{% url 'ultrarapidlinks:create' %}">
+{% with action=view.action|default:"Add"  %}
+    <h1>{{ action }}</h1>
+    <form class="form-horizontal" method="post" action=".">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="control-group">
@@ -15,5 +17,6 @@
             </div>
         </div>
     </form>
+{% endwith %}
 {% endblock %}
 
