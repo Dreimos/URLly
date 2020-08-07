@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    List
+{% endblock title %}
+
+{% block content %}
+    {% for storedurl in storedurl_list %}
+        <li><a href="{% url 'ultrarapidlinks:detail' slug=storedurl.slug %}">{{ storedurl.url }}</a></li>
+    {% endfor %}
+{% endblock content %}

@@ -1,12 +1,14 @@
 from django.db import models
 from django.utils.crypto import get_random_string
 from django.urls import reverse
+from django.conf import settings
 
 from model_utils.models import TimeStampedModel
 
 class StoredURL(TimeStampedModel):
     url = models.URLField("Real URL", unique=True)
     slug = models.SlugField("Internal slug", unique=True, blank=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
         slug_save(self, 5)
