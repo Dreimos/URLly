@@ -2,12 +2,12 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Create short URL
+    {{view.action|default:"Create"}} short URL
 {% endblock %}
 
 {% block content %}
 {% with action=view.action|default:"Add"  %}
-    <h1>{{ action }}</h1>
+    <h1>{{view.action|default:"Create"}} </h1>
     <form class="form-horizontal" method="post" action=".">
         {% csrf_token %}
         {{ form|crispy }}
