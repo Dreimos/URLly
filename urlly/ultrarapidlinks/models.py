@@ -7,6 +7,7 @@ from model_utils.models import TimeStampedModel
 
 class StoredURL(TimeStampedModel):
     url = models.URLField("Real URL", unique=True)
+    descriptor = models.CharField("URL Descriptor", blank=True, max_length=255)
     slug = models.SlugField("Internal slug", unique=True, blank=True)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 

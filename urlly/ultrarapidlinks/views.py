@@ -6,7 +6,7 @@ from .models import StoredURL
 
 class URLCreateView(LoginRequiredMixin, CreateView):
     model = StoredURL
-    fields = ['url']
+    fields = ['url', 'descriptor']
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -21,7 +21,7 @@ class URLListView(LoginRequiredMixin, ListView):
 
 class URLDetailView(LoginRequiredMixin, DetailView):
     model = StoredURL
-    fields = ['url', 'slug']
+    fields = ['url', 'descriptor', 'slug']
 
 class URLRedirectView(RedirectView):
     permanent = False
@@ -34,5 +34,5 @@ class URLRedirectView(RedirectView):
 
 class URLUpdateView(LoginRequiredMixin, UpdateView):
     model = StoredURL
-    fields = ['url']
+    fields = ['url', 'descriptor']
     action = "Update"
