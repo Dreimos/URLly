@@ -2,7 +2,12 @@ from django.views.generic import CreateView, DetailView, RedirectView, ListView,
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 
+from rest_framework import permissions, authentication
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from .models import StoredURL
+from .serializers import StoredURLSerializer
 
 class URLCreateView(LoginRequiredMixin, CreateView):
     model = StoredURL
@@ -38,3 +43,14 @@ class URLUpdateView(LoginRequiredMixin, UpdateView):
     model = StoredURL
     fields = ['url', 'descriptor']
     action = "Update"
+
+# REST addition.
+
+class StoredURLAPI(APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request, *args, **kwargs):
+        url = get_object_or_404(StoredURL, slug=kwargs["slug"])
+        serializer = StoredURLSerializer(url, many=False)
+        return Response(serializer.data)
