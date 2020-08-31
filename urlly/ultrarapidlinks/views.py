@@ -17,7 +17,7 @@ class URLListView(LoginRequiredMixin, ListView):
     queryset = StoredURL.objects.all()
 
     def get_queryset(self):
-        return StoredURL.objects.filter(creator=self.request.user)
+        return StoredURL.objects.filter(creator=self.request.user).order_by("created").reverse()
 
 class URLDetailView(LoginRequiredMixin, DetailView):
     model = StoredURL
@@ -30,6 +30,8 @@ class URLRedirectView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         url_object = get_object_or_404(StoredURL, slug=kwargs["slug"])
+        url_object.counter += 1
+        url_object.save() 
         return url_object.url
 
 class URLUpdateView(LoginRequiredMixin, UpdateView):

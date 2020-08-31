@@ -9,7 +9,9 @@ class StoredURL(TimeStampedModel):
     url = models.URLField("Real URL", unique=True)
     descriptor = models.CharField("URL Descriptor", blank=True, max_length=255)
     slug = models.SlugField("Internal slug", unique=True, blank=True)
+    counter = models.IntegerField("Usage counter", default=0, blank=False)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         slug_save(self, 5)

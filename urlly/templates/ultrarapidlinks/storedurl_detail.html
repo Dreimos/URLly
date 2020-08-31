@@ -1,16 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Url Detail
 {% endblock %}
 
-{% block content %}
-    <div class="container">
+{% block  javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/ultrarapidlinks.js' %}"></script>
+{% endblock %}
 
+{% block content %}
+    {% with descriptor=object.descriptor|default:"Your URL" %}
+        <h1>{{ descriptor }}</h1>
+    {% endwith %}
+    <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <p><a href={% url 'ultrarapidlinks:redirect' slug=object.slug %}>{{ object.url }}</a></p>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="text" class="form-control" id="UrlInput" value={{ object.url }} readonly>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="ClipboardCopy()">&#128203</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'ultrarapidlinks:update' slug=storedurl.slug %}" role="button">&#9997</a>
+                    <a class="btn btn-outline-secondary" href="{% url 'ultrarapidlinks:redirect' slug=storedurl.slug %}" role="button">&#10150</a>
+                </div>
             </div>
         </div>
+        <p>Number of visits: {{ object.counter }}</p>
     </div>
 {% endblock  %}

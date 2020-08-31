@@ -5,7 +5,47 @@
 {% endblock title %}
 
 {% block content %}
-    {% for storedurl in storedurl_list %}
-        <li><a href="{% url 'ultrarapidlinks:detail' slug=storedurl.slug %}">{{ storedurl.url }}</a></li>
-    {% endfor %}
+    <div class="container">
+        <div class="row">
+            <div class="col-">
+                <div class="sticky-top">
+                <a class="btn btn-outline-secondary" href="{% url 'ultrarapidlinks:create' %}" role="button">&#10133</a>
+                </div>
+            </div>
+            <div class="col">
+                <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center">Name</th>
+                        <th scope="col" class="text-center">Visits</th>
+                        <th scope="col" class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for storedurl in storedurl_list %}
+                    <tr>
+                    <th scope="row" class="text-center">{{ forloop.counter }}</th>
+                    {% with name=storedurl.descriptor|default:storedurl.url %}
+                        <td>{{ name }}</td>
+                        <td class="text-center">{{ storedurl.counter }}</td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <a class="btn btn-outline-secondary" href="{% url 'ultrarapidlinks:redirect' slug=storedurl.slug %}" role="button">&#10150</a>
+                                </div>
+                                <a class="btn btn-outline-secondary rounded-0" href="{% url 'ultrarapidlinks:detail' slug=storedurl.slug %}" role="button">&#128269</a>
+                                <div class="input-group-append">
+                                <a class="btn btn-outline-secondary" href="{% url 'ultrarapidlinks:update' slug=storedurl.slug %}" role="button">&#9997</a>
+                                </div>
+                            </div>
+                        </td>
+                    {% endwith %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
